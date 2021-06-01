@@ -10,40 +10,43 @@ namespace Heist
             Console.WriteLine("Plan your Heist");
             Console.WriteLine("----------------");
             Team newTeam = startTeam();
-            newTeam.DisplayTeammates();
+            // newTeam.DisplayTeammates();
+            Bank newBank = new Bank(100);
+            compareSkill(newBank, newTeam);
         }
         public static Team startTeam()
-        
+
         {
             Team ATeam = new Team();
             bool exit = true;
-            while (exit){
-            Console.WriteLine("Enter a team member's name: ");
-            string memberName = Console.ReadLine();
-            
-            if (
-                memberName.Length == 0
-            )
+            while (exit)
             {
-                return ATeam;
-            }
-            int skillLevel;
-            do
-            {
-                skillLevel = enterSkillLevel(memberName);
-            }
-            while (skillLevel <1 || skillLevel > 10);
+                Console.WriteLine("Enter a team member's name: ");
+                string memberName = Console.ReadLine();
 
-            double courageFactor;
-            do
-            {
-                courageFactor = enterCourageFactor(memberName);
+                if (
+                    memberName.Length == 0
+                )
+                {
+                    return ATeam;
+                }
+                int skillLevel;
+                do
+                {
+                    skillLevel = enterSkillLevel(memberName);
+                }
+                while (skillLevel < 1 || skillLevel > 10);
+
+                double courageFactor;
+                do
+                {
+                    courageFactor = enterCourageFactor(memberName);
+                }
+                while (courageFactor < 0.0 || courageFactor > 2.0);
+                ATeam.AddMember(new Member(memberName, skillLevel, courageFactor));
             }
-            while (courageFactor < 0.0 || courageFactor > 2.0 );
-            ATeam.AddMember(new Member(memberName, skillLevel, courageFactor));
-            }
-        ATeam.DisplayTeammates();
-        return ATeam;
+            ATeam.DisplayTeammates();
+            return ATeam;
         }
         public static int enterSkillLevel(string memberName)
         {
@@ -69,5 +72,17 @@ namespace Heist
             while (!(double.TryParse(memberCourageFactor, out courageFactor)));
             return courageFactor;
         }
-    }   
+        public static void compareSkill(Bank newBank, Team newTeam)
+        {
+            if (newTeam.AddTeamSkils() > newBank.Difficulty)
+            {
+                Console.WriteLine("Congrats! your team beat the Bank");
+            }
+            else
+            {
+                Console.WriteLine("The Bank has foreclosed on you");
+            }
+
+        }
+    }
 }
