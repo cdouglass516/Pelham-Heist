@@ -132,11 +132,11 @@ namespace Heist
             int result = 0;
             do
             {
-                Console.WriteLine("Choose a level of difficulty (E) (M) (H): ");
+                Console.WriteLine("Choose a level of difficulty (Easy) (Medium) (Hard): ");
                 response = Console.ReadLine().ToLower();
 
             }
-            while (response != "e" && response != "m" && response != "h");
+            while (response != "easy" && response != "medium" && response != "hard");
             if (response == "e")
             {
                 result = new Random().Next(0, 30);
