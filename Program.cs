@@ -11,14 +11,33 @@ namespace Heist
             Console.WriteLine("----------------");
             Team newTeam = startTeam();
             // newTeam.DisplayTeammates();
+            Bank newBank = new Bank(0);
+            newBank.GetBankLevel();
+            int startVal = newBank.Difficulty;
             int loops = BankAttempts();
+            int wins = 0;
+            int losses = 0;
             for (int i = 0; i < loops; i++)
             {
-                Bank newBank = new Bank(30);
+                newBank.Difficulty = startVal;
                 newBank.Difficulty = newBank.HeistLuck();
-                compareSkill(newBank, newTeam);
+                if (compareSkill(newBank, newTeam))
+                {
+                    wins++;
+                }
+                else
+                {
+                    losses++;
+                }
             }
+            Console.WriteLine($"Total runs: {loops} The team has become rich {wins}  The bank has sent you down the river: {losses} times");
+            
+
         }
+
+        // public static void(int wins, int losses){
+
+        // }
         public static Team startTeam()
 
         {
@@ -77,17 +96,19 @@ namespace Heist
             while (!(double.TryParse(memberCourageFactor, out courageFactor)));
             return courageFactor;
         }
-        public static void compareSkill(Bank newBank, Team newTeam)
+        public static bool compareSkill(Bank newBank, Team newTeam)
         {
             Console.WriteLine($"Yor team's total skill level was {newTeam.AddTeamSkils()}");
             Console.WriteLine($"The Bank's total skill was {newBank.Difficulty}");
-            if (newTeam.AddTeamSkils() > newBank.Difficulty)
+            if (newTeam.AddTeamSkils() >= newBank.Difficulty)
             {
                 Console.WriteLine("Congrats! your team beat the Bank");
+                return true;
             }
             else
             {
                 Console.WriteLine("The Bank has foreclosed on you");
+                return false;
             }
 
         }
@@ -103,5 +124,17 @@ namespace Heist
             } while (!(int.TryParse(difficultyLevel, out intDifficultyLevel)));
             return intDifficultyLevel;
         }
+
+        //         public static int GetBank()
+        // {
+        //     string difficultyLevel = "";
+        //     int intDifficultyLevel;
+        //     do
+        //     {
+        //         Console.WriteLine($"Enter the number of runs: ");
+        //         difficultyLevel = Console.ReadLine();
+        //     } while (!(int.TryParse(difficultyLevel, out intDifficultyLevel)));
+        //     return intDifficultyLevel;
+        // }
     }
 }
