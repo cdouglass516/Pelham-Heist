@@ -20,7 +20,7 @@ namespace Heist
             int count = 0;
             int success = 0;
             int failed = 0;
-                do
+            do
             {
                 string attempt = compareSkill(TeamSkills, Difficulty);
                 if (attempt == "success")
@@ -56,14 +56,14 @@ namespace Heist
                 int skillLevel;
                 do
                 {
-                    skillLevel = enterSkillLevel(memberName);
+                    skillLevel = enterSkillLevel();
                 }
-                while (skillLevel < 1 || skillLevel > 10);
+                while (skillLevel < 5 || skillLevel > 10);
 
                 double courageFactor;
                 do
                 {
-                    courageFactor = enterCourageFactor(memberName);
+                    courageFactor = enterCourageFactor();
                 }
                 while (courageFactor < 0.0 || courageFactor > 2.0);
                 ATeam.AddMember(new Member(memberName, skillLevel, courageFactor));
@@ -71,28 +71,42 @@ namespace Heist
             ATeam.DisplayTeammates();
             return ATeam;
         }
-        public static int enterSkillLevel(string memberName)
+        public static int enterSkillLevel()
         {
-            string memberSkillLevel;
+            // string memberSkillLevel;
             int skillLevel;
-            do
-            {
-                Console.WriteLine($"Enter {memberName}'s skill level between 1 and 10: ");
-                memberSkillLevel = Console.ReadLine();
-            }
-            while (!(int.TryParse(memberSkillLevel, out skillLevel)));
+            // do
+            // {
+            //     Console.WriteLine($"Enter {memberName}'s skill level between 1 and 10: ");
+            //     memberSkillLevel = Console.ReadLine();
+            // }
+            // while (!(int.TryParse(memberSkillLevel, out skillLevel)));
+            skillLevel = new Random().Next(5, 10);
             return skillLevel;
         }
-        public static double enterCourageFactor(string memberName)
+        public static double enterCourageFactor()
         {
-            string memberCourageFactor;
-            double courageFactor;
-            do
+            // string memberCourageFactor;
+            // double courageFactor;
+            // do
+            // {
+            //     Console.WriteLine($"Enter {memberName}'s courage factor between 0.0 and 2.0: ");
+            //     memberCourageFactor = Console.ReadLine();
+            // }
+            // while (!(double.TryParse(memberCourageFactor, out courageFactor)));
+            // return courageFactor;
+
+            double courageToBeConverted = new Random().Next(0, 2);
+            double courageFactor = 0;
+            if (courageToBeConverted == 2)
             {
-                Console.WriteLine($"Enter {memberName}'s courage factor between 0.0 and 2.0: ");
-                memberCourageFactor = Console.ReadLine();
+                courageFactor = courageToBeConverted;
             }
-            while (!(double.TryParse(memberCourageFactor, out courageFactor)));
+            else
+            {
+                courageFactor = (new Random().Next(0, 9) * .1);
+
+            }
             return courageFactor;
         }
         public static string compareSkill(int TeamSkills, int Difficulty)
@@ -137,16 +151,16 @@ namespace Heist
 
             }
             while (response != "easy" && response != "medium" && response != "hard");
-            if (response == "e")
+            if (response == "easy")
             {
                 result = new Random().Next(0, 30);
 
             }
-            else if (response == "m")
+            else if (response == "medium")
             {
                 result = new Random().Next(10, 65);
             }
-            else if (response == "h")
+            else if (response == "hard")
             {
                 result = new Random().Next(20, 100);
             }
