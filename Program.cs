@@ -11,10 +11,13 @@ namespace Heist
             Console.WriteLine("----------------");
             Team newTeam = startTeam();
             // newTeam.DisplayTeammates();
-            Bank newBank = new Bank(100);
-            newBank.Difficulty = newBank.HeistLuck();
-
-            compareSkill(newBank, newTeam);
+            int loops = BankAttempts();
+            for (int i = 0; i < loops; i++)
+            {
+                Bank newBank = new Bank(30);
+                newBank.Difficulty = newBank.HeistLuck();
+                compareSkill(newBank, newTeam);
+            }
         }
         public static Team startTeam()
 
@@ -87,6 +90,18 @@ namespace Heist
                 Console.WriteLine("The Bank has foreclosed on you");
             }
 
+        }
+
+        public static int BankAttempts()
+        {
+            string difficultyLevel = "";
+            int intDifficultyLevel;
+            do
+            {
+                Console.WriteLine($"Enter the number of runs: ");
+                difficultyLevel = Console.ReadLine();
+            } while (!(int.TryParse(difficultyLevel, out intDifficultyLevel)));
+            return intDifficultyLevel;
         }
     }
 }
