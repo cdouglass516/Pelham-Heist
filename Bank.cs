@@ -10,6 +10,11 @@ namespace Heist
             this.Difficulty = difficulty;
 
         }
+        public int HeistLuck()
+        {
+            int luck = new Random().Next(-10, 10);
+            return this.Difficulty + luck;
+        }
 
     }
 }
