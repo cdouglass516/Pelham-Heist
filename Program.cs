@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Collections.Generic;
 namespace Heist
 {
     class Program
@@ -10,6 +11,8 @@ namespace Heist
             Console.WriteLine("Plan your Heist");
             Console.WriteLine("----------------");
             Team newTeam = startTeam();
+            // add code to get the team number 1 to 50
+          //  Team newTeam = getRobbers(8);
             newTeam.DisplayTeammates();
             int TeamSkills = newTeam.AddTeamSkils();
             int difficultyLevel = getDifficultyLevel();
@@ -140,6 +143,24 @@ namespace Heist
 
             } while (Int32.TryParse(response, out result) == false);
             return result;
+        }
+public static Team getRobbers(int nbrOfRobbers){
+            Team newTeam = new Team(); 
+            List<string>names = new List<string>(){"Johnathon Ayers", "Ignacy Lopez", "Bea Lancaster", "Eesa Lim", "Regina Matthams", "Connor Ortiz", "Rachael Duncan", "Olli Guevara", "Montague Hough", "Ellen Sierra", "Maddie Downs", "Leyton Valencia", "Macauly O'Quinn", "Lula Griffith", "Taya Cain", "Opal Schaefer", "Leila Monaghan", "Isadora Silva", "Amari Rodrigues", "Malaikah Paterson", "Elleanor Knight", "Xanthe Coulson", "Preston Goddard", "Melina Chase", "Anis Lucero", "Terrell Sparrow", "Cherie Childs", "Aras Kidd","Keziah Mcdowell", "Avani Henry", "Harvir Page", "Tonya Rivera", "Anisha Wood", "Syed Casey", "Jordanna Key", "Darrell Buchanan", "Gus Montoya", "Franklyn Villalobos", "Daniella Higgs", "Darlene Zuniga", "Lleyton Chester", "Selena Field", "Hilda Mckenzie", "Umaiza Peck", "Jaden Lam", "Maizie Weiss", "Beck Levy", "Jibril Coles", "Akaash O'Connor", "Keagan Dunkley"}; 
+            List<string> namesAdded = new List<string>();
+            for(int i=0; i< nbrOfRobbers; i++){
+                string name; //= names[new Random().Next(0, 49)];
+                Member toAdd = new Member("",10,2.0);
+                do{
+                    name = names[new Random().Next(0, 49)];  
+                }while(namesAdded.Contains(name));
+                toAdd.memberName=name;
+                toAdd.skillLevel = enterSkillLevel();
+                toAdd.courageFactor = enterCourageFactor();
+                namesAdded.Add(name);
+                newTeam.AddMember(toAdd);
+            }
+            return newTeam;
         }
 
         public static int getDifficultyLevel()
