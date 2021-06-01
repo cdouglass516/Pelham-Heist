@@ -16,5 +16,18 @@ namespace Heist
             return this.Difficulty + luck;
         }
 
+        public void GetBankLevel()
+        {
+            string strBankDifficulty = "";
+            int intBankDifficulty = 0;
+            do
+            {
+                Console.WriteLine($"Enter the banks difficulty level:");
+                strBankDifficulty = Console.ReadLine();
+            }
+            while (!(int.TryParse(strBankDifficulty, out intBankDifficulty)));
+            this.Difficulty = intBankDifficulty;
+        }
+
     }
 }
