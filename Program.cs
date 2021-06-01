@@ -10,33 +10,32 @@ namespace Heist
             Console.WriteLine("Plan your Heist");
             Console.WriteLine("----------------");
             Team newTeam = startTeam();
-            // newTeam.DisplayTeammates();
-            Bank newBank = new Bank(0);
-            newBank.GetBankLevel();
+            newTeam.DisplayTeammates();
+            int TeamSkills = newTeam.AddTeamSkils();
+            int difficultyLevel = getDifficultyLevel();
+            Bank newBank = new Bank(difficultyLevel);
+            int Difficulty = newBank.Difficulty;
+            int attempts = BankAttempts();
             int startVal = newBank.Difficulty;
-            int loops = BankAttempts();
-            int wins = 0;
-            int losses = 0;
-            for (int i = 0; i < loops; i++)
+            int count = 0;
+            int success = 0;
+            int failed = 0;
+                do
             {
-                newBank.Difficulty = startVal;
-                newBank.Difficulty = newBank.HeistLuck();
-                if (compareSkill(newBank, newTeam))
+                string attempt = compareSkill(TeamSkills, Difficulty);
+                if (attempt == "success")
                 {
-                    wins++;
+                    success++;
                 }
                 else
                 {
-                    losses++;
+                    failed++;
                 }
-            }
-            Console.WriteLine($"Total runs: {loops} The team has become rich {wins}  The bank has sent you down the river: {losses} times");
-            
-
+                count++;
+            } while (count < attempts);
+            Console.WriteLine($"Total runs: {count} The team has become rich {success} times. The bank has sent you down the river: {failed} times");
         }
-
         // public static void(int wins, int losses){
-
         // }
         public static Team startTeam()
 
@@ -96,45 +95,62 @@ namespace Heist
             while (!(double.TryParse(memberCourageFactor, out courageFactor)));
             return courageFactor;
         }
-        public static bool compareSkill(Bank newBank, Team newTeam)
+        public static string compareSkill(int TeamSkills, int Difficulty)
         {
-            Console.WriteLine($"Yor team's total skill level was {newTeam.AddTeamSkils()}");
-            Console.WriteLine($"The Bank's total skill was {newBank.Difficulty}");
-            if (newTeam.AddTeamSkils() >= newBank.Difficulty)
+            int luckvalue = new Random().Next(-10, 10);
+            int BankSkill = luckvalue + Difficulty;
+            Console.WriteLine($"Bank value {BankSkill}");
+            Console.WriteLine($"Team combined skill = {TeamSkills}");
+
+            if (TeamSkills > BankSkill)
             {
                 Console.WriteLine("Congrats! your team beat the Bank");
-                return true;
+                return "success";
             }
             else
             {
                 Console.WriteLine("The Bank has foreclosed on you");
-                return false;
+                return "failed";
             }
-
         }
-
         public static int BankAttempts()
         {
-            string difficultyLevel = "";
-            int intDifficultyLevel;
+            int result = 0;
+            string response;
             do
             {
-                Console.WriteLine($"Enter the number of runs: ");
-                difficultyLevel = Console.ReadLine();
-            } while (!(int.TryParse(difficultyLevel, out intDifficultyLevel)));
-            return intDifficultyLevel;
+                Console.WriteLine("Enter the number of runs:");
+                response = Console.ReadLine();
+
+            } while (Int32.TryParse(response, out result) == false);
+            return result;
         }
 
-        //         public static int GetBank()
-        // {
-        //     string difficultyLevel = "";
-        //     int intDifficultyLevel;
-        //     do
-        //     {
-        //         Console.WriteLine($"Enter the number of runs: ");
-        //         difficultyLevel = Console.ReadLine();
-        //     } while (!(int.TryParse(difficultyLevel, out intDifficultyLevel)));
-        //     return intDifficultyLevel;
-        // }
+        public static int getDifficultyLevel()
+        {
+            string response;
+            int result = 0;
+            do
+            {
+                Console.WriteLine("Choose a level of difficulty (E) (M) (H): ");
+                response = Console.ReadLine().ToLower();
+
+            }
+            while (response != "e" && response != "m" && response != "h");
+            if (response == "e")
+            {
+                result = new Random().Next(0, 30);
+
+            }
+            else if (response == "m")
+            {
+                result = new Random().Next(10, 65);
+            }
+            else if (response == "h")
+            {
+                result = new Random().Next(20, 100);
+            }
+            return result;
+        }
     }
 }
