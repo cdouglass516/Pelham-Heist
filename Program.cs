@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Threading;
 namespace Heist
 {
     class Program
@@ -33,6 +33,8 @@ namespace Heist
                 }
                 count++;
             } while (count < attempts);
+            Thread.Sleep(3000);
+            Console.Clear();
             Console.WriteLine($"Total runs: {count} The team has become rich {success} times. The bank has sent you down the river: {failed} times");
         }
         // public static void(int wins, int losses){
@@ -117,7 +119,7 @@ namespace Heist
             Console.WriteLine($"Team combined skill = {TeamSkills}");
 
             if (TeamSkills > BankSkill)
-            {
+            {   
                 Console.WriteLine("Congrats! your team beat the Bank");
                 return "success";
             }
