@@ -12,7 +12,7 @@ namespace Heist
         }
         public int HeistLuck()
         {
-            int luck = new Random().Next(-10, 10);
+            int luck = new Random().Next(-20, 20);
             return this.Difficulty + luck;
         }
 
