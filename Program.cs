@@ -97,6 +97,7 @@ namespace Heist
             // }
             // while (!(double.TryParse(memberCourageFactor, out courageFactor)));
             // return courageFactor;
+
             double courageToBeConverted = new Random().Next(0, 2);
             double courageFactor = 0;
             if (courageToBeConverted == 2)
@@ -105,7 +106,7 @@ namespace Heist
             }
             else
             {
-                courageFactor = courageFactor + (new Random().Next(0 - 9) * .1);
+                courageFactor = (new Random().Next(0, 9) * .1);
 
             }
             return courageFactor;
