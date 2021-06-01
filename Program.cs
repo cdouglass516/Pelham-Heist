@@ -12,6 +12,8 @@ namespace Heist
             Team newTeam = startTeam();
             // newTeam.DisplayTeammates();
             Bank newBank = new Bank(100);
+            newBank.Difficulty = newBank.HeistLuck();
+
             compareSkill(newBank, newTeam);
         }
         public static Team startTeam()
@@ -74,6 +76,8 @@ namespace Heist
         }
         public static void compareSkill(Bank newBank, Team newTeam)
         {
+            Console.WriteLine($"Yor team's total skill level was {newTeam.AddTeamSkils()}");
+            Console.WriteLine($"The Bank's total skill was {newBank.Difficulty}");
             if (newTeam.AddTeamSkils() > newBank.Difficulty)
             {
                 Console.WriteLine("Congrats! your team beat the Bank");
