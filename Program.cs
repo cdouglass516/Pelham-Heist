@@ -10,35 +10,15 @@ namespace Heist
             Console.Clear();
             Console.WriteLine("Plan your Heist");
             Console.WriteLine("----------------");
-            Team newTeam = startTeam();
-            // add code to get the team number 1 to 50
-          //  Team newTeam = getRobbers(8);
-            newTeam.DisplayTeammates();
-            int TeamSkills = newTeam.AddTeamSkils();
-            int difficultyLevel = getDifficultyLevel();
-            Bank newBank = new Bank(difficultyLevel);
-            int Difficulty = newBank.Difficulty;
-            int attempts = BankAttempts();
-            int startVal = newBank.Difficulty;
-            int count = 0;
-            int success = 0;
-            int failed = 0;
-            do
-            {
-                string attempt = compareSkill(TeamSkills, Difficulty);
-                if (attempt == "success")
-                {
-                    success++;
-                }
-                else
-                {
-                    failed++;
-                }
-                count++;
-            } while (count < attempts);
-            Thread.Sleep(3000);
-            Console.Clear();
-            Console.WriteLine($"Total runs: {count} The team has become rich {success} times. The bank has sent you down the river: {failed} times");
+            Bank regions = new Bank(){
+                AlarmScore = 33
+            };
+            Hacker mrPink = new Hacker(){
+                Name = "Mr. Pink",
+                SkillLevel = 49,
+                PercentageCut = 100
+            };
+            mrPink.PerformSkill(regions);
         }
         // public static void(int wins, int losses){
         // }

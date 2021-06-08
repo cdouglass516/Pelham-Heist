@@ -4,30 +4,22 @@ namespace Heist
 {
     public class Bank
     {
-        public int Difficulty { get; set; }
-        public Bank(int difficulty)
-        {
-            this.Difficulty = difficulty;
+        public int CashOnHand { get; set; }
+        public int AlarmScore { get; set; }
+        public int VaultScore { get; set; }
+        public int SecurityGuardScore { get; set; }
 
-        }
-        public int HeistLuck()
+        public bool IsSecure {get
         {
-            int luck = new Random().Next(-20, 20);
-            return this.Difficulty + luck;
-        }
-
-        public void GetBankLevel()
-        {
-            string strBankDifficulty = "";
-            int intBankDifficulty = 0;
-            do
-            {
-                Console.WriteLine($"Enter the banks difficulty level:");
-                strBankDifficulty = Console.ReadLine();
+            if((AlarmScore + VaultScore + SecurityGuardScore) <= 0){
+                return false;
+            }else{
+                return true;
             }
-            while (!(int.TryParse(strBankDifficulty, out intBankDifficulty)));
-            this.Difficulty = intBankDifficulty;
+            
         }
-
+        
+        }
+        
     }
 }
