@@ -1,4 +1,4 @@
-namespace LockSpecialist
+namespace LockSpecialist//here
 {
     public class LockSpecialist : IRobber
     {
